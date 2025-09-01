@@ -4,7 +4,6 @@
 
 
         <h1>All products</h1>
-
         <div class="mt-4">
             <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Create Product</a>
         </div>
