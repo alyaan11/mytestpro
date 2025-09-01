@@ -1,6 +1,8 @@
 @extends('layouts.boilerplate')
 @section('content')
-    <div class="container">
+
+
+    
         <h1>Create Role</h1>
         <form action="{{ route('roles.store') }}" method="POST">
             @csrf
@@ -10,5 +12,4 @@
             </div>
             <button type="submit" class="btn btn-primary">Create Role</button>
         </form>
-    </div>
 @endsection

@@ -2,7 +2,6 @@
 
 @section('content')
     <h1>Users</h1>
-    @include('flash.flashmsgs')
     <table class="table">
         <thead>
             <tr>

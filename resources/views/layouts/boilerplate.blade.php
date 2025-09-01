@@ -12,7 +12,7 @@
     @include('layouts.sidebar')
 
     <div class="container mt-2">
-        @yield('flashsection')
+        @include('flash.flashmsgs')
         @yield('content')
 
     </div>

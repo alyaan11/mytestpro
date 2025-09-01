@@ -4,8 +4,6 @@
     <div class="container mt-4">
         <a href="{{ route('category.create') }}" class="btn btn-primary mb-3">Create Category</a>
 
-        {{-- Flash msgs --}}
-        @include('flash.flashmsgs')
 
         <table class="table">
             <thead>
