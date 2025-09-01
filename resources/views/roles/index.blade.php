@@ -3,7 +3,7 @@
 @section('content')
         <h1>Roles</h1>
         <a href="{{ route('roles.create') }}" class="btn btn-primary mt-4">Create New Role</a>
-        @include('flash.flashmsgs')
+
 
         <table class="table mt-2">
             <thead>

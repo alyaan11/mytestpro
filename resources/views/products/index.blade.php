@@ -8,7 +8,6 @@
             <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Create Product</a>
         </div>
 
-        @include('flash.flashmsgs')
 
         <h6 class="">User-Name: {{ auth()->user()->name }}</h6>
         <table class="table">
