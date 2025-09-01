@@ -11,7 +11,7 @@
 
     @include('layouts.sidebar')
 
-    <div class="container mt-4">
+    <div class="container mt-2">
         @yield('flashsection')
         @yield('content')
 

@@ -10,8 +10,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Role Name</th>
+                    <th>Assign Role</th>
                     <th>Assign Permissions</th>
-                    <th>Assign Roles</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -22,18 +22,18 @@
                         <td>{{ $role->name }}</td>
                         {{-- + --}}
                         <td>
+                            <a href="{{ route('roles.assignRolesToUser', $role->id) }}" class="btn btn-sm btn-secondary">Assign Role to User</a>
+                        </td>
+                        <td>
                             <a href="{{ route('roles.givePermissions', $role->id) }}" class="btn btn-sm btn-info">Give Permissions</a>
                             <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-primary">view</a>
                         </td>
                         <td>
-                            <a href="{{ route('roles.assignRolesToUser', $role->id) }}" class="btn btn-sm btn-secondary">Assign Role to User</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-warning">Edit Role</a>
                             <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this role?');">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this role?');">Delete Role</button>
                             </form>
                         </td>
                     </tr>

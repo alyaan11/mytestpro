@@ -6,13 +6,14 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
 
     public function __construct()
     {
-        $this->authorizeResource(Product::class, 'product');
+        $this->authorizeResource(Product::class , 'product');
     }
 
     /**
@@ -53,6 +54,9 @@ class ProductController extends Controller
         }
         $validatedData['user_id'] = auth()->id();
 
+        $category = Category::findOrFail($request->category_id);
+        $validatedData['category_name'] = $category->name;
+
         Product::create($validatedData);
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
@@ -64,7 +68,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail(111);
         dd($product);
-        return view('products.show', compact('product'));
+        return view('products.show',  ['product' => $product]);
     }
 
     /**
@@ -106,9 +110,46 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
 
     }
+
+    public function getAjax(Request $request)
+    {
+        return view('ajax.index');
+    }
+
+    public function test()
+    {
+        $categories = Category::all();
+
+        return view('products.test', compact('categories'));
+    }
+
+    public function dbStore(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required',
+        ]);
+
+        $category = Category::findOrFail($request->category_id);
+        $validatedData['category_name'] = $category->name;
+        // $validatedData['user_id'] = auth()->id();
+
+        Product::create($validatedData);
+        DB::commit();
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+
+        }catch (\Exception $e) {
+            DB::rollBack(); 
+            return redirect()->route('products.index')->with('error', 'Failed to create product.' . $e->getMessage());
+        }
+    }
+
 }

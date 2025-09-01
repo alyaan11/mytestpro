@@ -88,6 +88,14 @@ class RolesInfoController extends Controller
             return redirect()->route('roles.index')->with('success', 'Role assigned to user successfully.');
         }
 
+        public function show($id){
+            $role = Role::findOrFail($id);
+
+            // All permissions assigned to this role
+            $permissions = $role->permissions;
+
+            return view('roles.show', compact('role', 'permissions'));
+        }
 
 
     /**

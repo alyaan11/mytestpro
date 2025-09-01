@@ -10,15 +10,23 @@ use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
+Route::get('/ajax', [ProductController::class, 'getAjax'])->name('get.ajax');
+Route::post('/ajax', [ProductController::class, 'storeAjax'])->name('store.ajax');
+
+
+
 Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+    return view('welcome');
+    })->name('home');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -42,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/roles/{role}/assignRolesToUser', [RolesInfoController::class, 'assignRolesToUser'])->name('roles.assignRolesToUser');
     Route::post('/roles/{role}/assignRolesToUser', [RolesInfoController::class, 'storeAssignedRoles'])->name('roles.storeAssignedRoles');
     Route::resource('/accessories', AccessoriesController::class);
+
+    Route::get('/test', [ProductController::class, 'test'])->name('products.test');
+    Route::post('/test/data', [ProductController::class, 'dbStore'])->name('products.dbstore');
 });
 
 

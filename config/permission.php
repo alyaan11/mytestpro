@@ -182,12 +182,10 @@ return [
         'create products',
         'edit products',
         'delete products',
+    ],
 
-        // Orders
-        'view orders',
-        'create orders',
-        'edit orders',
-        'delete orders',
+    'groups' => [
+        \App\Models\Product::class => ['view', 'add' , 'edit' , 'delete']
     ],
 
 

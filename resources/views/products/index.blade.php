@@ -11,7 +11,7 @@
 
         @include('flash.flashmsgs')
 
-        <h6 class="">User-Id: {{ auth()->user()->id }}</h6>
+        <h6 class="">User-Name: {{ auth()->user()->name }}</h6>
         <table class="table">
             <thead>
                 <tr>
@@ -20,6 +20,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Image</th>
+                    <th>category_name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,13 +38,24 @@
                                 <span>No Image</span>
                             @endif
                         </td>
+                        <td>{{ $product->category_name }}</td>
                         <td>
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
+                            @can('update', $product)
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">Edit</a>
+                            @else
+                                <button class="btn btn-sm btn-warning" disabled>Edit</button>
+                            @endcan
+                            
+
+                            @can('delete', $product)
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            @else
+                                <button type="submit" class="btn btn-sm btn-danger" disabled>Delete</button> 
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
