@@ -170,7 +170,7 @@ return [
 
 
 
-    'permissions' => [
+    'permission' => [
         // Users
         'view users',
         'create users',

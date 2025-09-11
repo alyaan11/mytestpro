@@ -13,7 +13,7 @@ class ProductPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('view products');
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductPolicy
     public function create(User $user): bool
     {
 
-        return true;
+        return  $user->hasRole('admin') || ($user->hasPermissionTo('create products'));
     }
 
     /**
