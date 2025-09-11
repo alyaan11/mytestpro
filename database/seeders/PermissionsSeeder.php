@@ -12,12 +12,28 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = config('permission.permissions');
+        $permissions =  [
+        // Users
+        'view users',
+        'create users',
+        'edit users',
+        'delete users',
+
+        // Products
+        'view products',
+        'create products',
+        'edit products',
+        'delete products',
+
+        'view categories',
+        'create categories',
+        'edit categories',
+        'delete categories',
+        ];
 
         foreach ($permissions as $permission) {
             \Spatie\Permission\Models\Permission::firstOrCreate(['name' => $permission]);
         }
     }
 
-    
 }

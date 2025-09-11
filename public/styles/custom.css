@@ -1,0 +1,8 @@
+.text-green{
+    color: rgb(40, 155, 40);
+}
+.transparent-btn{
+    background-color: rgb(240, 237, 237);
+    color: rgb(116, 116, 116);
+    border-color: #bbb5b6;
+}

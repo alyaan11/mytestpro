@@ -6,15 +6,41 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesInfoController;
 use App\Http\Controllers\UserController;
-
+use Illuminate\Support\Facades\App;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
+// Route::get('lang/{locale}', function ($locale) {
+//     if (in_array($locale, ['en', 'ur'])) {  // ✅ allowed langs
+//         App::setLocale($locale);
+//         // Session::put('locale', $locale);
+//     }
+//     return back();
+// })->middleware('locale');
+
+
+// routes/web.php
+Route::get('lang', function () {
+    return view('lang');
+})->name('lang');
+
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ur', 'chinese'])) {
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+    }
+    return view('lang' );
+})->middleware('locale');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 
 
@@ -25,7 +51,7 @@ Route::post('/ajax', [ProductController::class, 'storeAjax'])->name('store.ajax'
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-    return view('welcome');
+    return view('lang');
     })->name('home');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
