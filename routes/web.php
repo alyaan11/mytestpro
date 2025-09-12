@@ -31,7 +31,7 @@ Route::get('lang/{locale}', function ($locale) {
         app()->setLocale($locale);
     }
     return view('lang' );
-})->middleware('locale');
+})->middleware('locale', 'auth');
 
 
 Route::get('/dashboard', function () {
@@ -49,7 +49,7 @@ Route::post('/ajax', [ProductController::class, 'storeAjax'])->name('store.ajax'
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','locale')->group(function () {
     Route::get('/', function () {
     return view('lang');
     })->name('home');
